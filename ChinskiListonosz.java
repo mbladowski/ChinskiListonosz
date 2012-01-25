@@ -1,10 +1,11 @@
 /**
- * Problem chiñskiego listonosza / TGiS
- * Autor: Micha³ Bladowski, III rok Informatyki
+ * Problem chiÅ„skiego listonosza / TGiS
+ * Autor: MichaÅ‚ Bladowski, III rok Informatyki
  * Rok: 2012
  */
 
  import java.awt.*;
+ import java.awt.Color;
  import java.awt.event.*;
  import java.awt.font.*;
  import java.util.*;
@@ -32,7 +33,7 @@
     
     public RamkaListonosza()
     {
-       setTitle("Problem chiñskiego listonosza");
+       setTitle("Problem chiÅ„skiego listonosza");
        setSize(SZEROKOSC, WYSOKOSC);
  
        // dolacz panel do ramki
@@ -47,12 +48,10 @@
         // menu opcji
         JMenu menuOpcje = new JMenu("Opcje");
         
-        elemWyznacz = menuOpcje.add(new Wyznacz("Wyznacz drogê"));
+        elemWyznacz = menuOpcje.add(new Wyznacz("Wyznacz drogÄ™"));
 //        if(!(panel.kwadraty.isEmpty()))
 //        {
-        
-elemWyznacz.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F6, 
-InputEvent.CTRL_DOWN_MASK));
+        elemWyznacz.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F6, InputEvent.CTRL_DOWN_MASK));
         elemWyznacz.addActionListener(new
           ActionListener()
           {
@@ -67,11 +66,10 @@ InputEvent.CTRL_DOWN_MASK));
 //            elemWyznacz.setEnabled(false);
 //        }
         
-        elemWyczysc = menuOpcje.add(new Wyczysc("Wyczy¶æ"));
+        elemWyczysc = menuOpcje.add(new Wyczysc("WyczyÅ›Ä‡"));
 //        if(!(panel.kwadraty.isEmpty()))
 //        {
-        elemWyczysc.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, 
-InputEvent.CTRL_DOWN_MASK));
+        elemWyczysc.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK));
         elemWyczysc.addActionListener(new
           ActionListener()
           {
@@ -89,13 +87,11 @@ InputEvent.CTRL_DOWN_MASK));
         menuOpcje.addSeparator();
 
         elemCofnij = menuOpcje.add(new Cofnij("Cofnij"));
-        elemCofnij.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, 
-InputEvent.CTRL_DOWN_MASK));
+        elemCofnij.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_DOWN_MASK));
         elemCofnij.setEnabled(false);
         
         elemDalej = menuOpcje.add(new Dalej("Dalej"));
-        elemDalej.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, 
-InputEvent.CTRL_DOWN_MASK));
+        elemDalej.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, InputEvent.CTRL_DOWN_MASK));
         elemDalej.setEnabled(false);       
         
         menuOpcje.addSeparator();
@@ -110,15 +106,14 @@ InputEvent.CTRL_DOWN_MASK));
         // menu pomoc
         JMenu menuPomoc = new JMenu("Pomoc");
         
-        elemWskazowki = menuPomoc.add(new JMenuItem("Wskazówki"));
+        elemWskazowki = menuPomoc.add(new JMenuItem("WskazÃ³wki"));
         elemWskazowki.addActionListener(new
           ActionListener()
           {
              public void actionPerformed(ActionEvent zdarzenie)
              {
                 if (okno_wsk == null) // pierwszy raz
-                   okno_wsk = new OknoInformacji(RamkaListonosza.this, 
-"Wskazówki", dz.get_wskazowki(), 620, 380);
+                   okno_wsk = new OknoInformacji(RamkaListonosza.this, "WskazÃ³wki", dz.get_wskazowki(), 620, 380);
                 okno_wsk.show(); // pokaz okno
              }
           });
@@ -130,8 +125,7 @@ InputEvent.CTRL_DOWN_MASK));
              public void actionPerformed(ActionEvent zdarzenie)
              {
                 if (okno_aut == null) // pierwszy raz
-                   okno_aut = new OknoInformacji(RamkaListonosza.this, 
-"O autorze", dz.get_autor(), 235, 180);
+                   okno_aut = new OknoInformacji(RamkaListonosza.this, "O autorze", dz.get_autor(), 235, 180);
                 okno_aut.show(); // pokaz okno
              }
           });
@@ -203,6 +197,7 @@ InputEvent.CTRL_DOWN_MASK));
        krawedzie = new ArrayList();
        obecny = null;
        obecna = null;
+       coloring_flag = false;
  
        addMouseListener(new UchwytMyszki());
        addMouseMotionListener(new UchwytRuchuMyszki());
@@ -221,24 +216,33 @@ InputEvent.CTRL_DOWN_MASK));
        {
            s = SYMBOLE.get(i).toString();
            Rectangle2D gr = f.getStringBounds(s, kontekst);
-           g2.drawString(s, 
-(int)((Wezel)(kwadraty.get(i))).get_kwadrat().getX()+DLUGOSCBOKU/3, 
-(int)((Wezel)(kwadraty.get(i))).get_kwadrat().getY()+DLUGOSCBOKU*3/4);
+           g2.drawString(s, (int)((Wezel)(kwadraty.get(i))).get_kwadrat().getX()+DLUGOSCBOKU/3, (int)((Wezel)(kwadraty.get(i))).get_kwadrat().getY()+DLUGOSCBOKU*3/4);
            g2.setPaint(Color.BLACK);
-           
-g2.draw((Rectangle2D)((Wezel)(kwadraty.get(i))).get_kwadrat());
+           g2.draw((Rectangle2D)((Wezel)(kwadraty.get(i))).get_kwadrat());
        }
        // narysuj wszystkie krawedzie
+       if(coloring_flag == true) 
+       {
+           for (int i = 0; i < Q.size(); i++)
+           {
+               double x = ((((Krawedz)krawedzie.get((Integer)Q.get(i))).get_krawedz()).getX1()+(((Krawedz)krawedzie.get((Integer)Q.get(i))).get_krawedz()).getX2())/2;
+               double y = ((((Krawedz)krawedzie.get((Integer)Q.get(i))).get_krawedz()).getY1()+(((Krawedz)krawedzie.get((Integer)Q.get(i))).get_krawedz()).getY2())/2;
+               s = Integer.toString(((Krawedz)krawedzie.get((Integer)Q.get(i))).get_waga());
+               g2.drawString(s, (float)x+DLUGOSCBOKU/2, (float)y+DLUGOSCBOKU/2);
+               g2.setPaint(Color.BLUE);
+               g2.draw((Line2D)((Krawedz)krawedzie.get((Integer)Q.get(i))).get_krawedz());
+           }
+       } 
+       else 
+       {
        for (int i = 0; i < krawedzie.size(); i++)
        {
-           double x = 
-((((Krawedz)krawedzie.get(i)).get_krawedz()).getX1()+(((Krawedz)krawedzie.get(i)).get_krawedz()).getX2())/2;
-           double y = 
-((((Krawedz)krawedzie.get(i)).get_krawedz()).getY1()+(((Krawedz)krawedzie.get(i)).get_krawedz()).getY2())/2;
+           double x = ((((Krawedz)krawedzie.get(i)).get_krawedz()).getX1()+(((Krawedz)krawedzie.get(i)).get_krawedz()).getX2())/2;
+           double y = ((((Krawedz)krawedzie.get(i)).get_krawedz()).getY1()+(((Krawedz)krawedzie.get(i)).get_krawedz()).getY2())/2;
            s = Integer.toString(((Krawedz)krawedzie.get(i)).get_waga());
-           g2.drawString(s, (float)x+DLUGOSCBOKU/2, 
-(float)y+DLUGOSCBOKU/2);
+           g2.drawString(s, (float)x+DLUGOSCBOKU/2, (float)y+DLUGOSCBOKU/2);
            g2.draw((Line2D)((Krawedz)krawedzie.get(i)).get_krawedz());
+       }
        }
     }
  
@@ -251,8 +255,7 @@ g2.draw((Rectangle2D)((Wezel)(kwadraty.get(i))).get_kwadrat());
     {
        for (int i = 0; i < kwadraty.size(); i++)
        {
-          Rectangle2D r = 
-(Rectangle2D)((Wezel)kwadraty.get(i)).get_kwadrat();
+          Rectangle2D r = (Rectangle2D)((Wezel)kwadraty.get(i)).get_kwadrat();
           if (r.contains(p)) return r;
        }
  
@@ -315,6 +318,7 @@ g2.draw((Rectangle2D)((Wezel)(kwadraty.get(i))).get_kwadrat());
        obecna = null;
        kwadraty.removeAll(kwadraty);
        krawedzie.removeAll(krawedzie);
+       coloring_flag = false;
        repaint();
     }  
     
@@ -345,10 +349,9 @@ g2.draw((Rectangle2D)((Wezel)(kwadraty.get(i))).get_kwadrat());
     private static ArrayList SYMBOLE;
     public ArrayList kwadraty;
     private ArrayList krawedzie;
-    private Rectangle2D obecny; // kwadrat, w ktorym znajduje sie kursor 
-myszki
-    private Line2D obecna; // krawedz, na ktorej znajduje sie kursor 
-myszki
+    private Rectangle2D obecny; // kwadrat, w ktorym znajduje sie kursor myszki
+    private Line2D obecna; // krawedz, na ktorej znajduje sie kursor myszki
+    public boolean coloring_flag;
  
     private class UchwytMyszki extends MouseAdapter
     {
@@ -356,8 +359,7 @@ myszki
        
        public void mousePressed(MouseEvent zdarzenie)
        {
-          // jesli kursor nie znajduje sie wewnatrz kwadratu, narysuj 
-nowy kwadrat
+          // jesli kursor nie znajduje sie wewnatrz kwadratu, narysuj nowy kwadrat
           obecny = find(zdarzenie.getPoint());
           if (obecny == null && zdarzenie.getClickCount() >= 2)
              add(zdarzenie.getPoint());
@@ -366,28 +368,24 @@ nowy kwadrat
        public void mouseClicked(MouseEvent zdarzenie)
        {
            JPopupMenu menu = new JPopupMenu();
-          // jesli nastapilo klikniecie prawym przyciskiem myszy, 
-wyswietl menu
+          // jesli nastapilo klikniecie prawym przyciskiem myszy, wyswietl menu
           obecny = find(zdarzenie.getPoint());
               
-          if (obecny != null && ((zdarzenie.getModifiers() & 
-InputEvent.BUTTON3_MASK) != 0 ))
+          if (obecny != null && ((zdarzenie.getModifiers() & InputEvent.BUTTON3_MASK) != 0 ))
           {
              menu.add(new
-                AbstractAction("Usuñ") {
+                AbstractAction("UsuÅ„") {
                     public void actionPerformed(ActionEvent zdarzenie){
                         remove(find(obecny));
                     }
                 });
              menu.add(new
-                AbstractAction("Dodaj krawêd¼ do: ") {
+                AbstractAction("Dodaj krawÄ™dÅº do: ") {
                     public void actionPerformed(ActionEvent zdarzenie){
-                            okno = new 
-OknoDodawaniaKrawedzi(PanelMyszki.this, 400, 300);
+                            okno = new OknoDodawaniaKrawedzi(PanelMyszki.this, 400, 300);
                             okno.show(); // pokaz okno
                 }});
-             menu.show(zdarzenie.getComponent(), zdarzenie.getX(), 
-zdarzenie.getY());
+             menu.show(zdarzenie.getComponent(), zdarzenie.getX(), zdarzenie.getY());
                 }
                      
        }
@@ -408,8 +406,7 @@ zdarzenie.getY());
                 (Cursor.MOVE_CURSOR));
        }
  
-       public void mouseDragged(MouseEvent zdarzenie) // przesuwanie 
-krawedzi do poprawki !
+       public void mouseDragged(MouseEvent zdarzenie) // przesuwanie krawedzi do poprawki !
        {
           if (obecny != null)
           {
@@ -417,8 +414,7 @@ krawedzi do poprawki !
              int y = zdarzenie.getY();
              Wezel w = null;
  
-             // przesun obecny kwadrat tak, aby jego srodek znajdowal 
-sie w (x, y)
+             // przesun obecny kwadrat tak, aby jego srodek znajdowal sie w (x, y)
              obecny.setFrame(
                 x - DLUGOSCBOKU / 2,
                 y - DLUGOSCBOKU / 2,
@@ -427,23 +423,19 @@ sie w (x, y)
              
              for(int i=0; i < kwadraty.size(); i++)
              {
-                
-if(((Rectangle2D)((Wezel)(kwadraty.get(i))).get_kwadrat()).equals(obecny)) 
-w = (Wezel)(kwadraty.get(i));
+                if(((Rectangle2D)((Wezel)(kwadraty.get(i))).get_kwadrat()).equals(obecny)) w = (Wezel)(kwadraty.get(i));
              }
              for(int i = 0; i < krawedzie.size(); i++)
              {
                    Krawedz kr = (Krawedz)(krawedzie.get(i));
                    if(kr.get_wezel1() == w.get_id()) 
                    {
-                       obecna.setLine(new Point2D.Double(x,y), 
-obecna.getP2());
+                       obecna.setLine(new Point2D.Double(x,y), obecna.getP2());
                        kr.set(obecna, kr.get_waga());
                    }
                    else if(kr.get_wezel2() == w.get_id())
                    {
-                       obecna.setLine(obecna.getP1(), new 
-Point2D.Double(x,y));
+                       obecna.setLine(obecna.getP1(), new Point2D.Double(x,y));
                        kr.set(obecna, kr.get_waga());
                    }
              }
@@ -454,38 +446,34 @@ Point2D.Double(x,y));
     
  /**
   * Klasa OknoKrawedzi
-  * U¿ywana jest do wy¶wietlania wskazówek
+  * UÅ¼ywana jest do wyÅ›wietlania wskazÃ³wek
   * oraz informacji o autorze
   */
  class OknoDodawaniaKrawedzi extends JDialog
  {
     private ButtonGroup grupa_wezlow = new ButtonGroup();
     private JTextField poleWaga;
-    public OknoDodawaniaKrawedzi(JPanel wlasciciel, int width, int 
-height)
+    public OknoDodawaniaKrawedzi(JPanel wlasciciel, int width, int height)
     {
-       //super(wlasciciel, "Menu dodawania krawêdzi", true);
+       //super(wlasciciel, "Menu dodawania krawÄ™dzi", true);
        setLayout(new GridLayout(2,2));
        
        Container cp = getContentPane();
        
        JPanel mainy = new JPanel();
        mainy.setLayout(new GridLayout(2,2));
-       mainy.add(new Label("Wêze³ docelowy:"));
+       mainy.add(new Label("WÄ™zeÅ‚ docelowy:"));
                         for(int i=0; i < kwadraty.size(); i++)
                         {
-                            
-if(!((Rectangle2D)((Wezel)(kwadraty.get(i))).get_kwadrat()).equals(obecny))
+                            if(!((Rectangle2D)((Wezel)(kwadraty.get(i))).get_kwadrat()).equals(obecny))
                             {
-                                JRadioButton b = new 
-JRadioButton(SYMBOLE.get(i).toString());
-                                
-b.setActionCommand(SYMBOLE.get(i).toString());
+                                JRadioButton b = new JRadioButton(SYMBOLE.get(i).toString());
+                                b.setActionCommand(SYMBOLE.get(i).toString());
                                 mainy.add(b);
                                 grupa_wezlow.add(b);           
                             }
                         }
-                        mainy.add(new Label("Waga krawêdzi:"));
+                        mainy.add(new Label("Waga krawÄ™dzi:"));
                         mainy.add(poleWaga = new JTextField("",10));
 
                         JButton przyciskOK  = new JButton("Ok");
@@ -497,10 +485,8 @@ b.setActionCommand(SYMBOLE.get(i).toString());
                                 setVisible(false);
                                 String pobrany_wezel = pobierzWezel();
                                 int pobrana_waga = pobierzWage();
-                                Point2D p1 = new 
-Point2D.Double(obecny.getCenterX(),obecny.getCenterY());
-                                Point2D p2 = new 
-Point2D.Double(((Wezel)(kwadraty.get(SYMBOLE.indexOf(pobrany_wezel)))).get_x(),((Wezel)(kwadraty.get(SYMBOLE.indexOf(pobrany_wezel)))).get_y());
+                                Point2D p1 = new Point2D.Double(obecny.getCenterX(),obecny.getCenterY());
+                                Point2D p2 = new Point2D.Double(((Wezel)(kwadraty.get(SYMBOLE.indexOf(pobrany_wezel)))).get_x(),((Wezel)(kwadraty.get(SYMBOLE.indexOf(pobrany_wezel)))).get_y());
                                 add(p1,p2,pobrana_waga);
                             }
                         });
@@ -515,20 +501,19 @@ Point2D.Double(((Wezel)(kwadraty.get(SYMBOLE.indexOf(pobrany_wezel)))).get_x(),(
                             }
                         });
 
-       // do³±czam przycisk 'Ok' do po³udniowej krawêdzi
+       // doÅ‚Ä…czam przycisk 'Ok' do poÅ‚udniowej krawÄ™dzi
        JPanel dol = new JPanel();
        dol.add(przyciskOK);
        dol.add(przyciskAnuluj);
        cp.add(mainy, BorderLayout.NORTH);
        cp.add(dol, BorderLayout.SOUTH);
-       setTitle("Menu dodawania krawêdzi");
+       setTitle("Menu dodawania krawÄ™dzi");
        setSize(width, height);
     }
     
     public String pobierzWezel()
     {
-        String s = 
-grupa_wezlow.getSelection().getActionCommand().toString();
+        String s = grupa_wezlow.getSelection().getActionCommand().toString();
         return s;
     }
     
@@ -661,13 +646,11 @@ class Krawedz {
             L[i] = new ArrayList();
             for(int j = 0; j < krawedzie.size(); j++)
             {
-                if((((Wezel)(kwadraty.get(i))).wezel_id) == 
-((Krawedz)krawedzie.get(j)).get_wezel1()) 
+                if((((Wezel)(kwadraty.get(i))).wezel_id) == ((Krawedz)krawedzie.get(j)).get_wezel1()) 
                 {
                     L[i].add(((Krawedz)krawedzie.get(j)).get_wezel2());
                 }
-                else if((((Wezel)(kwadraty.get(i))).wezel_id) == 
-((Krawedz)krawedzie.get(j)).get_wezel2())
+                else if((((Wezel)(kwadraty.get(i))).wezel_id) == ((Krawedz)krawedzie.get(j)).get_wezel2())
                 {
                     L[i].add(((Krawedz)krawedzie.get(j)).get_wezel1());
                 }
@@ -680,8 +663,7 @@ class Krawedz {
         } 
         else 
         {
-            System.out.println("Graf nie jest spójny, rozwi±zanie nie 
-istnieje !");
+            System.out.println("Graf nie jest spÃ³jny, rozwiÄ…zanie nie istnieje !");
         }
     }
     
@@ -713,10 +695,8 @@ istnieje !");
         for(int i = 0; i < kwadraty.size(); i++) { 
             for(int j = 0; j < krawedzie.size(); j++)
             {
-                if((((Wezel)(kwadraty.get(i))).wezel_id) == 
-((Krawedz)krawedzie.get(j)).get_wezel1()) stopnie[i]++;
-                else if((((Wezel)(kwadraty.get(i))).wezel_id) == 
-((Krawedz)krawedzie.get(j)).get_wezel2()) stopnie[i]++;
+                if((((Wezel)(kwadraty.get(i))).wezel_id) == ((Krawedz)krawedzie.get(j)).get_wezel1()) stopnie[i]++;
+                else if((((Wezel)(kwadraty.get(i))).wezel_id) == ((Krawedz)krawedzie.get(j)).get_wezel2()) stopnie[i]++;
             }
             if(stopnie[i]%2!=0) nieparzyste.add(new Integer(i));
         }
@@ -725,41 +705,45 @@ istnieje !");
         {
             //Dijkstra(nieparzyste); // implement
             //Euler();
-            System.out.println("Program na razie obs³uguje tylko grafy o 
-parzystych stopniach wierzcho³ków ! :("); //temp
+            System.out.println("Program na razie obsÅ‚uguje tylko grafy o parzystych stopniach wierzchoÅ‚kÃ³w ! :("); //temp
         } 
         else
         {
             Euler();
+            coloring_flag = true;
             System.out.println("Cykl Eulera dla tego grafu to: ");
             for(int i = 0; i < Q.size(); i++)
             {
-                if(i == Q.size()-1) 
-System.out.print(((String)(SYMBOLE.get((Integer)Q.get(i))))+"\n");
-                else 
-System.out.print(((String)(SYMBOLE.get((Integer)Q.get(i))))+"->");
+                if(i == Q.size()-1) System.out.print(((String)(SYMBOLE.get((Integer)Q.get(i))))+"\n");
+                else System.out.print(((String)(SYMBOLE.get((Integer)Q.get(i))))+"->");
+                try
+                {
+                     repaint();
+                     Thread.sleep(1000);  
+                }
+                catch (InterruptedException ie)
+                {
+                     System.out.println(ie.getMessage());
+                }
             }
-        }
+       }
     }
     
     // Algorytm Dijkstry
     private void Dijkstra(ArrayList nieparzyste)
     {
         // todo
-        //K01: 	S . .;   Q . V
-        //K02: 	Dla i = 1,2,...,n :  p(i) . 0;   d(i) . .
-        //K03: 	d(vo) . 0
-        //K04: 	Dopóki Q . . wykonuj kroki od K05 do K07
-        //K05: 	    u . wierzcho³ek ze zbioru Q o najmniejszym d(u)
-        //K06: 	    Q . Q \ u;  S . S . u
-        //K07: 	    Dla ka¿dego v Î Q, takiego ¿e krawêd¼ (u,v) Î E, 
-je¶li d(v) > d(u) + waga(u,v), to  d(v) . d(u) + waga(u,v);   p(v) .  u
-        //K08: 	Zakoñcz algorytm
+        //K01:  S â† Ã˜;   Q â† V
+        //K02: 	Dla i = 1,2,...,n :  p(i) â† 0;   d(i) â† Â¥
+        //K03: 	d(vo) â† 0
+        //K04: 	DopÃ³ki Q â‰  Ã˜ wykonuj kroki od K05 do K07
+        //K05: 	    u â† wierzchoÅ‚ek ze zbioru Q o najmniejszym d(u)
+        //K06: 	    Q â† Q \ u;  S â† S Ãˆ u
+        //K07: 	    Dla kaÅ¼dego v ÃŽ Q, takiego Å¼e krawÄ™dÅº (u,v) ÃŽ E, jeÅ›li d(v) > d(u) + waga(u,v), to  d(v) â† d(u) + waga(u,v);   p(v) â†  u
+        //K08: 	ZakoÅ„cz algorytm
         //
-        //dla k (wierzcho³ki nieparzystych stopni) > 20 podej¶cie 
-kombinatoryczne nie ma sensu, 
-        //wówczas trzeba zastosowaæ algorytm Edmondsa, o z³o¿ono¶ci 
-O(n^3), ale ten z kolei jest skomplikowany
+        //dla k (wierzchoÅ‚ki nieparzystych stopni) > 20 podejÅ›cie kombinatoryczne nie ma sensu, 
+        //wÃ³wczas trzeba zastosowaÄ‡ algorytm Edmondsa, o zÅ‚oÅ¼onoÅ›ci O(n^3), ale ten z kolei jest skomplikowany
     }    
     
     // Algorytm Eulera
@@ -788,8 +772,7 @@ O(n^3), ale ten z kolei jest skomplikowany
         visited[v] = true;
         for(int i = 0; i < L[v].size(); i++)
         {
-            if(!visited[(Integer)L[v].get(i)]) 
-DFS((Integer)L[v].get(i));
+            if(!visited[(Integer)L[v].get(i)]) DFS((Integer)L[v].get(i));
         }
     }
 
@@ -798,8 +781,8 @@ DFS((Integer)L[v].get(i));
 //--------------------------------------------------------------------------
 
 /**
- * Dzia³anie - klada przechowuje podstawow± funkcjonalno¶æ
- * programu, np. cofanie, sprawdzanie danych, wskazówki, notatkê
+ * DziaÅ‚anie - klada przechowuje podstawowÄ… funkcjonalnoÅ›Ä‡
+ * programu, np. cofanie, sprawdzanie danych, wskazÃ³wki, notatkÄ™
  * o autorze.
  */
 class Dzialanie {
@@ -815,65 +798,54 @@ class Dzialanie {
     ///// usuniete /////
 
     //------------------------------------------
-    // Funkcja cofaj±ca ostatni± akcjê
-    // w zale¿no¶ci od aktywnego pola
+    // Funkcja cofajÄ…ca ostatniÄ… akcjÄ™
+    // w zaleÅ¼noÅ›ci od aktywnego pola
     //------------------------------------------
     public void cofnij(int pole) {
             // todo
     }
 
     //------------------------------------------
-    // Funkcja zwracaj±ca tre¶æ wskazówek
+    // Funkcja zwracajÄ…ca treÅ›Ä‡ wskazÃ³wek
     //------------------------------------------
     public String get_wskazowki(){
-        wskazowki = "<html><h2 align='center'>Problem chiñskiego 
-listonosza</h2><hr>"
-                + "<p align='center'>W teorii grafów, jest to zadanie 
-znalezienia drogi zamkniêtej<br>"
-                + "(wracaj±cej do wierzcho³ka pocz±tkowego), 
-zawieraj±cej ka¿d± krawêd¼<br>"
-                + "grafu co najmniej raz i maj±cej minimalny koszt (sumê 
-wag krawêdzi).<br><br>"
-                + "Problem ten zosta³ sformu³owany po raz pierwszy w 
-jêzyku teorii grafów<br>"
-                + "przez chinskiego matematyka Mei Ku Kwana w 1962 
-roku.<br></p>"
+        wskazowki = "<html><h2 align='center'>Problem chiÅ„skiego listonosza</h2><hr>"
+                + "<p align='center'>W teorii grafÃ³w, jest to zadanie znalezienia drogi zamkniÄ™tej<br>"
+                + "(wracajÄ…cej do wierzchoÅ‚ka poczÄ…tkowego), zawierajÄ…cej kaÅ¼dÄ… krawÄ™dÅº<br>"
+                + "grafu co najmniej raz i majÄ…cej minimalny koszt (sumÄ™ wag krawÄ™dzi).<br><br>"
+                + "Problem ten zostaÅ‚ sformuÅ‚owany po raz pierwszy w jÄ™zyku teorii grafÃ³w<br>"
+                + "przez chinskiego matematyka Mei Ku Kwana w 1962 roku.<br></p>"
                 + "<h2 align='center'>Opcje</h2><hr>"
-                + "<p align='center'>Aby zacz±æ od nowa, kliknij na 
-pasku narzêdzi 'Opcje' a nastêpnie 'Wyczy¶æ'.<br><br>"
-                + "Aby cofn±æ operacjê, kliknij na pasku narzêdzi 
-'Opcje' a nastêpnie 'Cofnij'.<br><br>"
-                + "Aby wykonaæ ponownie cofniêt± akcjê, kliknij na pasku 
-narzêdzi 'Opcje' a nastêpnie 'Dalej'.<br><br>"
-                + "Aby rozwi±zaæ zadany problem, kliknij na pasku 
-narzêdzi 'Opcje' a nastêpnie 'Wyznacz drogê listonosza'.</p></html>";
+                + "<p align='center'>Aby zaczÄ…Ä‡ od nowa, kliknij na pasku narzÄ™dzi 'Opcje' a nastÄ™pnie 'WyczyÅ›Ä‡'.<br><br>"
+                + "Aby cofnÄ…Ä‡ operacjÄ™, kliknij na pasku narzÄ™dzi 'Opcje' a nastÄ™pnie 'Cofnij'.<br><br>"
+                + "Aby wykonaÄ‡ ponownie cofniÄ™tÄ… akcjÄ™, kliknij na pasku narzÄ™dzi 'Opcje' a nastÄ™pnie 'Dalej'.<br><br>"
+                + "Aby rozwiÄ…zaÄ‡ zadany problem, kliknij na pasku narzÄ™dzi 'Opcje' a nastÄ™pnie 'Wyznacz drogÄ™ listonosza'.</p></html>";
         return wskazowki;
     }
 
     //------------------------------------------
-    // Funkcja zwracaj±ca informacje o autorze
+    // Funkcja zwracajÄ…ca informacje o autorze
     //------------------------------------------
     public String get_autor(){
         autor = "<html><h3 align='center'><i><u>Autor:</u></i></h3>"
-              + "<h2>Micha³ Bladowski &copy; 2012</h2></html>";
+              + "<h2>MichaÅ‚ Bladowski &copy; 2012</h2></html>";
         return autor;
     }
 }
 
  /**
   * Klasa OknoInformacji
-  * U¿ywana jest do wy¶wietlania wskazówek
+  * UÅ¼ywana jest do wyÅ›wietlania wskazÃ³wek
   * oraz informacji o autorze
   */
  class OknoInformacji extends JDialog
  {
-    public OknoInformacji(JFrame wlasciciel, String tytul, String info, 
-int width, int height)
+    public OknoInformacji(JFrame wlasciciel, String tytul, String info, int width, int height)
     {
        super(wlasciciel, tytul, true);
        Container cp = getContentPane();
 
-       // po¶rodku umieszczam etykietê HTML
+       // poÅ›rodku umieszczam etykietÄ™ HTML
        cp.add(new JLabel(info),
           BorderLayout.CENTER);
 
@@ -888,7 +860,7 @@ int width, int height)
              }
           });
 
-       // do³±czam przycisk 'Ok' do po³udniowej krawêdzi
+       // doÅ‚Ä…czam przycisk 'Ok' do poÅ‚udniowej krawÄ™dzi
        JPanel panel = new JPanel();
        panel.add(ok);
        cp.add(panel, BorderLayout.SOUTH);
@@ -898,7 +870,7 @@ int width, int height)
 }
 
     /**
-     * Klasa obs³uguj±ca przycisk Opcje -> Wyczy¶æ
+     * Klasa obsÅ‚ugujÄ…ca przycisk Opcje -> WyczyÅ›Ä‡
      */
     class Wyczysc extends AbstractAction {
 
@@ -912,7 +884,7 @@ int width, int height)
     }    
 
     /**
-     * Klasa obs³uguj±ca przycisk Opcje -> Cofnij
+     * Klasa obsÅ‚ugujÄ…ca przycisk Opcje -> Cofnij
      */
     class Cofnij extends AbstractAction {
 
@@ -926,7 +898,7 @@ int width, int height)
     }
     
     /**
-     * Klasa obs³uguj±ca przycisk Opcje -> Dalej
+     * Klasa obsÅ‚ugujÄ…ca przycisk Opcje -> Dalej
      */
     class Dalej extends AbstractAction {
 
@@ -940,7 +912,7 @@ int width, int height)
     }
 
     /**
-     * Klasa obs³uguj±ca przycisk Opcje -> Wyznacz droge
+     * Klasa obsÅ‚ugujÄ…ca przycisk Opcje -> Wyznacz droge
      */
     class Wyznacz extends AbstractAction {
 

@@ -1,6 +1,6 @@
 /**
  * Problem chińskiego listonosza / TGiS
- * Autor: Michał Bladowski, III rok Informatyki
+ * Autor: Michał Bladowski, III rok Informatyki UG
  * Rok: 2012
  */
 
@@ -781,7 +781,7 @@ class Krawedz {
 //--------------------------------------------------------------------------
 
 /**
- * Działanie - klada przechowuje podstawową funkcjonalność
+ * Działanie - klasa przechowuje podstawową funkcjonalność
  * programu, np. cofanie, sprawdzanie danych, wskazówki, notatkę
  * o autorze.
  */
@@ -820,11 +820,11 @@ class Dzialanie {
                 + "1. Sprawdź, czy graf jest spójny. Jeżeli nie jest, to zakończ.<br>"
                 + "2: Wyszukaj w grafie wierzchołki o nieparzystych stopniach.<br>"
                 + "3: Jeśli w grafie brak wierzchołków o nieparzystych stopniach, przejdź do punktu 5.<br>"
-                + "4a: Za pomocą algorytmu Dijkstry wyznacz najkrótsze ścieżki łączące ze sobą znalezione wierzchołki nieparzystych stopni.<br>"
-                + "4b.: Wyszukaj skojarzenie owych wierzchołków w pary tak, aby suma wag krawędzi była najmniejsza.<br>"
-                + "4c: Zdubluj krawędzie wchodzące w skład wyznaczonych w poprzednim punkcie ścieżek.<br>"
-                + "5: Wyznacz w grafie cykl Eulera i go wypisz.<br>"
-                + "6: Zakończ.<br></p>"
+                + "4a. Za pomocą algorytmu Dijkstry wyznacz najkrótsze ścieżki łączące ze sobą znalezione wierzchołki nieparzystych stopni.<br>"
+                + "4b. Wyszukaj skojarzenie owych wierzchołków w pary tak, aby suma wag krawędzi była najmniejsza.<br>"
+                + "4c. Zdubluj krawędzie wchodzące w skład wyznaczonych w poprzednim punkcie ścieżek.<br>"
+                + "5. Wyznacz w grafie cykl Eulera i go wypisz.<br>"
+                + "6. Zakończ.<br></p>"
                 + "<h2 align='center'>Opcje</h2><hr>"
                 + "<p align='center'>Aby zacząć od nowa, kliknij na pasku narzędzi 'Opcje' a następnie 'Wyczyść'.<br><br>"
                 + "Aby cofnąć operację, kliknij na pasku narzędzi 'Opcje' a następnie 'Cofnij'.<br><br>"

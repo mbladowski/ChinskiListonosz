@@ -113,7 +113,7 @@
              public void actionPerformed(ActionEvent zdarzenie)
              {
                 if (okno_wsk == null) // pierwszy raz
-                   okno_wsk = new OknoInformacji(RamkaListonosza.this, "Wskazówki", dz.get_wskazowki(), 620, 380);
+                   okno_wsk = new OknoInformacji(RamkaListonosza.this, "Wskazówki", dz.get_wskazowki(), 640, 620);
                 okno_wsk.show(); // pokaz okno
              }
           });
@@ -815,6 +815,16 @@ class Dzialanie {
                 + "grafu co najmniej raz i mającej minimalny koszt (sumę wag krawędzi).<br><br>"
                 + "Problem ten został sformułowany po raz pierwszy w języku teorii grafów<br>"
                 + "przez chinskiego matematyka Mei Ku Kwana w 1962 roku.<br></p>"
+                + "<h2 align='center'>Algorytm rozwiązywania problemu</h2><hr>"
+                + "<p align='left'>Aby rozwiązać opisany problem, postępujemy wg poniższego schematu:<br><br>"
+                + "1. Sprawdź, czy graf jest spójny. Jeżeli nie jest, to zakończ.<br>"
+                + "2: Wyszukaj w grafie wierzchołki o nieparzystych stopniach.<br>"
+                + "3: Jeśli w grafie brak wierzchołków o nieparzystych stopniach, przejdź do punktu 5.<br>"
+                + "4a: Za pomocą algorytmu Dijkstry wyznacz najkrótsze ścieżki łączące ze sobą znalezione wierzchołki nieparzystych stopni.<br>"
+                + "4b.: Wyszukaj skojarzenie owych wierzchołków w pary tak, aby suma wag krawędzi była najmniejsza.<br>"
+                + "4c: Zdubluj krawędzie wchodzące w skład wyznaczonych w poprzednim punkcie ścieżek.<br>"
+                + "5: Wyznacz w grafie cykl Eulera i go wypisz.<br>"
+                + "6: Zakończ.<br></p>"
                 + "<h2 align='center'>Opcje</h2><hr>"
                 + "<p align='center'>Aby zacząć od nowa, kliknij na pasku narzędzi 'Opcje' a następnie 'Wyczyść'.<br><br>"
                 + "Aby cofnąć operację, kliknij na pasku narzędzi 'Opcje' a następnie 'Cofnij'.<br><br>"

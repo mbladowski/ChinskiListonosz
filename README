@@ -1,0 +1,21 @@
+Problem chińskiego listonosza
+
+W teorii grafów, jest to zadanie znalezienia drogi zamkniętej
+(wracającej do wierzchołka początkowego), zawierającej każdą krawędź
+grafu co najmniej raz i mającej minimalny koszt (sumę wag krawędzi).
+Problem ten został sformułowany po raz pierwszy w języku teorii grafów.
+przez chinskiego matematyka Mei Ku Kwana w 1962 roku.
+
+Algorytm rozwiązywania problemu
+
+Aby rozwiązać opisany problem, postępujemy wg poniższego schematu:
+1. Sprawdź, czy graf jest spójny. Jeżeli nie jest, to zakończ.
+2. Wyszukaj w grafie wierzchołki o nieparzystych stopniach.
+3. Jeśli w grafie brak wierzchołków o nieparzystych stopniach, przejdź do punktu 5.
+4a. Za pomocą algorytmu Dijkstry wyznacz najkrótsze ścieżki łączące ze sobą znalezione wierzchołki nieparzystych stopni.
+4b. Wyszukaj skojarzenie owych wierzchołków w pary tak, aby suma wag krawędzi była najmniejsza.
+4c. Zdubluj krawędzie wchodzące w skład wyznaczonych w poprzednim punkcie ścieżek.
+5. Wyznacz w grafie cykl Eulera i go wypisz.
+6. Zakończ.
+
+(c) 2012 Michał Bladowski
